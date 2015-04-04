@@ -1,3 +1,4 @@
+import os
 from data_manager import DataManager
 
 manager = DataManager()
@@ -28,9 +29,9 @@ print ''
 
 print b[0].contest_short_name
 print b[0].name
-print b[0].text_url
+print b[0].text_pdf_url
 print b[0].pages
-print b[0].tests_zip
+print b[0].tests_zip_url
 print b[0].tests_in_path
 print b[0].tests_in_to_out
 print b[0].tests_num_io
@@ -38,10 +39,17 @@ print ''
 
 print b[-1].contest_short_name
 print b[-1].name
-print b[-1].text_url
+print b[-1].text_pdf_url
 print b[-1].pages
-print b[-1].tests_zip
+print b[-1].tests_zip_url
 print b[-1].tests_in_path
 print b[-1].tests_in_to_out
 print b[-1].tests_num_io
 print ''
+
+b[0].download_text_pdf('0.pdf')
+b[0].download_tests_zip('0.zip')
+assert os.path.isfile('0.pdf')
+assert os.path.isfile('0.zip')
+os.remove('0.pdf')
+os.remove('0.zip')
