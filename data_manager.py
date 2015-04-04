@@ -1,4 +1,4 @@
-import csv
+import re, os, csv, urllib2
 import _hidden_settings
 import _settings
 import _worksheet_downloader
@@ -21,16 +21,36 @@ class Task(object):
         super(Task, self).__init__()
         self.contest_short_name = lst[_settings.TASKS_CONTESTS_SHORT_NAME_COLUMN]
         self.name = lst[_settings.TASKS_NAME_COLUMN]
-        self.text_url = lst[_settings.TASKS_TEXT_URL_COLUMN]
+        self.text_pdf_url = lst[_settings.TASKS_TEXT_URL_COLUMN]
         self.pages = map(int, lst[_settings.TASKS_PAGES_COLUMN].split(','))
-        self.tests_zip = lst[_settings.TASKS_TESTS_ZIP_COLUMN]
+        self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN]
         self.tests_in_path = lst[_settings.TASKS_TESTS_IN_PATH_COLUMN]
         self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN]
         self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN]
 
+    def __write_to_file(self, input_stream, dst):
+        ofile = open(dst, "wb")
+        ofile.write(input_stream.read())
+
+    def __download_url(self, url, dst):
+        stub = _settings.CACHE_DIR + "/" + \
+                re.sub(r'[^a-zA-Z0-9_]', '', url)
+        if not os.path.isfile(stub):
+            req = urllib2.Request(url)
+            self.__write_to_file(urllib2.urlopen(req), stub);
+        return self.__write_to_file(open(stub, "rb"), dst)
+
+    def download_tests_zip(self, dst):
+        return self.__download_url(self.tests_zip_url, dst)
+
+    def download_text_pdf(self, dst):
+        return self.__download_url(self.text_pdf_url, dst)
+
+
 class DataManager(object):
     def __init__(self, read_cached=True):
         super(DataManager, self).__init__()
+        self.__check_settings()
         self.downloader = _worksheet_downloader.WorksheetDownloader(
                 _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
         self.read_cached = read_cached
@@ -50,6 +70,10 @@ class DataManager(object):
         if self.tasks == None or read_cached == False:
             self.__load_tasks()
         return self.tasks
+
+    def __check_settings(self):
+        assert os.path.isdir(_settings.CACHE_DIR), \
+                "cache dir doesn't exists: " + _settings.CACHE_DIR
 
     def __load_contests(self):
         tsv_contests = self.downloader.download(_settings.CONTESTS_ID, _settings.CONTESTS_GID)

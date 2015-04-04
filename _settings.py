@@ -1,3 +1,7 @@
+import os
+
+CACHE_DIR = os.path.dirname(os.path.realpath(__file__)) + '/cache'
+
 CONTESTS_ID = '1OGZSKwosTozShM2JOeUFeneLmQLED46H28dkg6Tt8JA'
 CONTESTS_GID = '0'
 CONTESTS_HEADER_SIZE = 2
