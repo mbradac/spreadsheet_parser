@@ -26,14 +26,14 @@ print a[-1].num_tasks
 print a[-1].url
 print ''
 
-print b[-1].contest_short_name
-print b[-1].name
-print b[-1].text_url
-print b[-1].pages
-print b[-1].tests_zip
-print b[-1].tests_in_path
-print b[-1].tests_in_to_out
-print b[-1].tests_num_io
+print b[0].contest_short_name
+print b[0].name
+print b[0].text_url
+print b[0].pages
+print b[0].tests_zip
+print b[0].tests_in_path
+print b[0].tests_in_to_out
+print b[0].tests_num_io
 print ''
 
 print b[-1].contest_short_name
