@@ -31,6 +31,7 @@ class Task(object):
     def __write_to_file(self, input_stream, dst):
         ofile = open(dst, "wb")
         ofile.write(input_stream.read())
+        ofile.close()
 
     def __download_url(self, url, dst):
         stub = _settings.CACHE_DIR + "/" + \
