@@ -73,8 +73,8 @@ class DataManager(object):
         return self.tasks
 
     def __check_settings(self):
-        assert os.path.isdir(_settings.CACHE_DIR), \
-                "cache dir doesn't exists: " + _settings.CACHE_DIR
+        if not os.path.isdir(_settings.CACHE_DIR) :
+            os.mkdir(_settings.CACHE_DIR)
 
     def __load_contests(self):
         tsv_contests = self.downloader.download(_settings.CONTESTS_ID, _settings.CONTESTS_GID)
