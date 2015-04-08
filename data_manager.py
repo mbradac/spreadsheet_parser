@@ -19,7 +19,7 @@ class Contest(object):
 class Task(object):
     def __init__(self, lst):
         super(Task, self).__init__()
-        self.contest_short_name = lst[_settings.TASKS_CONTESTS_SHORT_NAME_COLUMN]
+        self.contests_key = lst[_settings.TASKS_CONTESTS_KEY_COLUMN]
         self.name = lst[_settings.TASKS_NAME_COLUMN]
         self.text_pdf_url = lst[_settings.TASKS_TEXT_URL_COLUMN]
         self.pages = map(int, lst[_settings.TASKS_PAGES_COLUMN].split(','))
@@ -57,6 +57,7 @@ class DataManager(object):
         self.read_cached = read_cached
         self.__contests = None
         self.__tasks = None
+        self.__contest_tasks_dict = None
 
     def get_contests(self, read_cached=None):
         if read_cached == None:
@@ -71,6 +72,13 @@ class DataManager(object):
         if self.__tasks == None or read_cached == False:
             self.__load_tasks()
         return self.__tasks[:]
+
+    def tasks_in_contest(self, contest, read_cached=None):
+        if read_cached == None:
+            read_cached = self.read_cached
+        if self.__contest_tasks_dict == None or read_cached == False:
+            self.__build_dict(read_cached)
+        return self.__contest_tasks_dict.get(contest.key, [])[:]
 
     def __check_settings(self):
         try:
@@ -93,3 +101,14 @@ class DataManager(object):
         self.__tasks = []
         for row in rows:
             self.__tasks.append(Task(row))
+
+    def __build_dict(self, read_cached):
+        if read_cached == None:
+            read_cached = self.read_cached
+        self.get_contests(read_cached)
+        self.get_tasks(read_cached)
+        self.__contest_tasks_dict = {}
+        for contest in self.__contests:
+            self.__contest_tasks_dict[contest.key] = []
+        for task in self.__tasks:
+            self.__contest_tasks_dict[task.contests_key].append(task)

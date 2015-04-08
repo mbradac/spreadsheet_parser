@@ -27,7 +27,7 @@ print a[-1].num_tasks
 print a[-1].url
 print ''
 
-print b[0].contest_short_name
+print b[0].contests_key
 print b[0].name
 print b[0].text_pdf_url
 print b[0].pages
@@ -37,7 +37,7 @@ print b[0].tests_in_to_out
 print b[0].tests_num_io
 print ''
 
-print b[-1].contest_short_name
+print b[-1].contests_key
 print b[-1].name
 print b[-1].text_pdf_url
 print b[-1].pages
@@ -53,3 +53,7 @@ assert os.path.isfile('0.pdf')
 assert os.path.isfile('0.zip')
 os.remove('0.pdf')
 os.remove('0.zip')
+
+c = manager.tasks_in_contest(a[0])
+print len(c)
+print c[0].name
