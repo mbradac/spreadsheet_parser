@@ -2,6 +2,7 @@ import re, os, csv, urllib2
 import _hidden_settings
 import _settings
 import _worksheet_downloader
+import contest_names
 
 class Contest(object):
     def __init__(self, lst):
@@ -15,6 +16,9 @@ class Contest(object):
         self.round = lst[_settings.CONTESTS_ROUND_COLUMN]
         self.num_tasks = int(lst[_settings.CONTESTS_NUM_TASKS_COLUMN])
         self.url = lst[_settings.CONTESTS_URL_COLUMN]
+
+    def full_name_plural(self):
+        return contest_names.PLURALS[self.full_name]
 
 class Task(object):
     def __init__(self, lst):

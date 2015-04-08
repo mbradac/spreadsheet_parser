@@ -57,3 +57,4 @@ os.remove('0.zip')
 c = manager.tasks_in_contest(a[0])
 print len(c)
 print c[0].name
+print a[0].full_name_plural()
