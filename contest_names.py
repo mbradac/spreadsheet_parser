@@ -1,0 +1,8 @@
+SKOLSKO = 'Skolsko Natjecanje'
+ZUPANIJSKO = 'Zupanijsko Natjecanje'
+DRZAVNO = 'Drzavno Natjecanje'
+HIO = 'Hrvatska informaticka Olimpijada'
+JHIO = 'Juniorska Hrvatska Informatici Olimpijada'
+IZBORNE = 'Izborne Pripreme'
+HONI = 'Hrvatsko Otvoreno Natjecanje u Informatici'
+STUDENTSKO = 'Natjecanje Timova Studenata Informaticara Hrvatskih Sveucilista'
