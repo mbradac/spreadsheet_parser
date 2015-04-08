@@ -1,3 +1,4 @@
 _hidden_settings.py
 *.pyc
 *.swp
+cache/
