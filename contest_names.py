@@ -7,6 +7,8 @@ IZBORNE = 'Izborne Pripreme'
 HONI = 'Hrvatsko Otvoreno Natjecanje u Informatici'
 STUDENTSKO = 'Natjecanje Timova Studenata Informaticara Hrvatskih Sveucilista'
 
+CONTEST_NAMES = [SKOLSKO, ZUPANIJSKO, DRZAVNO, HIO, JHIO, IZBORNE, HONI, STUDENTSKO]
+
 PLURALS = {}
 PLURALS[SKOLSKO] = 'Skolska natjecanja'
 PLURALS[ZUPANIJSKO] = 'Zupanijska natjecanja'
