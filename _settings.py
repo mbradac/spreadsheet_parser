@@ -1,6 +1,6 @@
 import os
 
-CACHE_DIR = os.path.dirname(os.path.realpath(__file__)) + '/cache'
+CACHE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)) + 'cache')
 
 CONTESTS_ID = '1OGZSKwosTozShM2JOeUFeneLmQLED46H28dkg6Tt8JA'
 CONTESTS_GID = '0'
