@@ -1,20 +1,22 @@
-SKOLSKO = 'Skolsko Natjecanje'
-ZUPANIJSKO = 'Zupanijsko Natjecanje'
-DRZAVNO = 'Drzavno Natjecanje'
-HIO = 'Hrvatska informaticka Olimpijada'
-JHIO = 'Juniorska Hrvatska Informatici Olimpijada'
-IZBORNE = 'Izborne Pripreme'
-HONI = 'Hrvatsko Otvoreno Natjecanje u Informatici'
-STUDENTSKO = 'Natjecanje Timova Studenata Informaticara Hrvatskih Sveucilista'
+# -*- coding: utf-8 -*-
+
+SKOLSKO = u'Školsko natjecanje'
+ZUPANIJSKO = u'Županijsko natjecanje'
+DRZAVNO = u'Državno natjecanje'
+HIO = u'Hrvatska informatička olimpijada'
+JHIO = u'Juniorska hrvatska informatička olimpijada'
+IZBORNE = u'Izborne pripreme'
+HONI = u'Hrvatsko otvoreno natjecanje u informatici'
+STUDENTSKO = u'Natjecanje timova studenata informaticara hrvatskih sveucilista'
 
 CONTEST_NAMES = [SKOLSKO, ZUPANIJSKO, DRZAVNO, HIO, JHIO, IZBORNE, HONI, STUDENTSKO]
 
 PLURALS = {}
-PLURALS[SKOLSKO] = 'Skolska natjecanja'
-PLURALS[ZUPANIJSKO] = 'Zupanijska natjecanja'
-PLURALS[DRZAVNO] = 'Drzavna natjecanja'
-PLURALS[HIO] = 'Hrvatske informaticke olimpijade'
-PLURALS[JHIO] = 'Juniorske hrvatske informaticke olimpijade'
-PLURALS[IZBORNE] = 'Izborne pripreme'
-PLURALS[HONI] = 'Hrvatska otvorena natjecanja u informatici'
-PLURALS[STUDENTSKO] = 'Natjecanja timova studenata informaticara hrvatskih sveucilista'
+PLURALS[SKOLSKO] = u'Školska natjecanja'
+PLURALS[ZUPANIJSKO] = u'Županijska natjecanja'
+PLURALS[DRZAVNO] = u'Državna natjecanja'
+PLURALS[HIO] = u'Hrvatske informatičke olimpijade'
+PLURALS[JHIO] = u'Juniorske hrvatske informatičke olimpijade'
+PLURALS[IZBORNE] = u'Izborne pripreme'
+PLURALS[HONI] = u'Hrvatsko otvoreno natjecanje u informatici'
+PLURALS[STUDENTSKO] = u'Natjecanja timova studenata informatičara hrvatskih sveučilista'

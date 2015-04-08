@@ -11,7 +11,7 @@ class Contest(object):
         self.short_name = lst[_settings.CONTESTS_SHORT_NAME_COLUMN]
         self.remaining = int(lst[_settings.CONTESTS_REMAINING_COLUMN])
         self.organizer = lst[_settings.CONTESTS_ORGANIZER_COLUMN]
-        self.full_name = lst[_settings.CONTESTS_FULL_NAME_COLUMN]
+        self.full_name = lst[_settings.CONTESTS_FULL_NAME_COLUMN].decode('utf-8')
         self.year = int(lst[_settings.CONTESTS_YEAR_COLUMN])
         self.round = lst[_settings.CONTESTS_ROUND_COLUMN]
         self.num_tasks = int(lst[_settings.CONTESTS_NUM_TASKS_COLUMN])
