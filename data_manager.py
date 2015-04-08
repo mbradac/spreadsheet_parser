@@ -24,7 +24,7 @@ class Task(object):
     def __init__(self, lst):
         super(Task, self).__init__()
         self.contests_key = lst[_settings.TASKS_CONTESTS_KEY_COLUMN]
-        self.name = lst[_settings.TASKS_NAME_COLUMN]
+        self.name = lst[_settings.TASKS_NAME_COLUMN].decode('utf-8')
         self.text_pdf_url = lst[_settings.TASKS_TEXT_URL_COLUMN]
         self.pages = map(int, lst[_settings.TASKS_PAGES_COLUMN].split(','))
         self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN]
