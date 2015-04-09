@@ -61,11 +61,14 @@ class Task(object):
 
 
 class DataManager(object):
-    def __init__(self, read_cached=True):
+    def __init__(self, read_cached=True, downloader=None):
         super(DataManager, self).__init__()
         self.__check_settings()
-        self.__downloader = _worksheet_downloader.WorksheetDownloader(
-                _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
+        if downloader == None :
+            self.__downloader = _worksheet_downloader.WorksheetDownloader(
+                    _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
+        else :
+            self.__downloader = downloader
         self.read_cached = read_cached
         self.__contests = None
         self.__tasks = None
