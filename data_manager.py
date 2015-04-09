@@ -3,6 +3,7 @@ import _hidden_settings
 import _settings
 import _worksheet_downloader
 import contest_names
+import unicodedata
 
 class Contest(object):
     def __init__(self, lst):
@@ -32,8 +33,12 @@ class Task(object):
         self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN]
         self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN]
 
+    def key(self):
+        return self.contests_key + '-' + unicodedata.normalize(
+                'NFD', self.name).encode('ascii', 'ignore')
+
     def __hash__(self):
-        return (self.contests_key + self.name).__hash__()
+        return self.key().__hash__()
 
     def __write_to_file(self, input_stream, dst):
         ofile = open(dst, "wb")
