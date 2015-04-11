@@ -22,3 +22,10 @@ class TsvFromSpreadsheet(object):
         rows = list(csv.reader(tsv_tasks, delimiter='\t'))
         rows = rows[_settings.TASKS_HEADER_SIZE:]
         return rows
+
+    def get_names(self):
+        tsv_names = self.__downloader.download(
+                _settings.VALUES_ID, _settings.VALUES_GID)
+        rows = list(csv.reader(tsv_names, delimiter='\t'))
+        rows = rows[_settings.VALUES_HEADER_SIZE:]
+        return rows

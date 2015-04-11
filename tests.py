@@ -67,3 +67,8 @@ print b[6].normalized_name()
 print b[34].name
 print b[34].key()
 print b[34].normalized_name()
+
+print manager.get_contest_full_name('skolsko')
+print manager.get_contest_full_name('drzavno')
+print manager.get_contest_full_name('hio')
+print manager.get_contest_full_name('nepostoji')
