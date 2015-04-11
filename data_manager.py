@@ -151,7 +151,7 @@ class DataManager(object):
                 self.__task_contest_dict[task] = contest
 
     def __build_name_dicts(self, read_cached=None):
-        if(read_cached == None):
+        if read_cached == None:
             read_cached = self.read_cached
         if self.__contest_names_dict == None or read_cached == False:
             names = self.__tsv_provider.get_names()
@@ -166,7 +166,7 @@ class DataManager(object):
                 self.__contest_names_dict[short_name] = full_name
 
     def get_contest_full_name(self, short_name, read_cached=None):
-        if(read_cached == None):
+        if read_cached == None:
             read_cached = self.read_cached
         self.__build_name_dicts(read_cached)
         if short_name in self.__contest_names_dict:
