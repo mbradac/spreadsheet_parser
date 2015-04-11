@@ -4,6 +4,7 @@ import _settings
 import _worksheet_downloader
 import contest_names
 import unicodedata
+import _tsv_from_spreadsheet
 
 class Contest(object):
     def __init__(self, lst):
@@ -34,8 +35,9 @@ class Task(object):
         self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN]
 
     def key(self):
-        return self.contests_key + '-' + unicodedata.normalize(
-                'NFD', self.name).encode('ascii', 'ignore')
+        normalised_name = unicodedata.normalize('NFD', self.name).encode(
+                'ascii', 'ignore').split()[0].lower()
+        return self.contests_key + '-' + normalised_name
 
     def __hash__(self):
         return self.key().__hash__()
@@ -61,14 +63,11 @@ class Task(object):
 
 
 class DataManager(object):
-    def __init__(self, read_cached=True, downloader=None):
+    def __init__(self, read_cached=True, tsv_provider=None):
         super(DataManager, self).__init__()
         self.__check_settings()
-        if downloader == None :
-            self.__downloader = _worksheet_downloader.WorksheetDownloader(
-                    _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
-        else :
-            self.__downloader = downloader
+        if tsv_provider == None:
+            self.__tsv_provider = _tsv_from_spreadsheet.TsvFromSpreadsheet()
         self.read_cached = read_cached
         self.__contests = None
         self.__tasks = None
@@ -110,19 +109,13 @@ class DataManager(object):
             assert os.path.isdir(_settings.CACHE_DIR)
 
     def __load_contests(self):
-        tsv_contests = self.__downloader.download(
-                _settings.CONTESTS_ID, _settings.CONTESTS_GID)
-        rows = list(csv.reader(tsv_contests, delimiter='\t'))
-        rows = rows[_settings.CONTESTS_HEADER_SIZE:]
+        rows = self.__tsv_provider.get_contests()
         self.__contests = []
         for row in rows:
             self.__contests.append(Contest(row))
 
     def __load_tasks(self):
-        tsv_tasks = self.__downloader.download(
-                _settings.TASKS_ID, _settings.TASKS_GID)
-        rows = list(csv.reader(tsv_tasks, delimiter='\t'))
-        rows = rows[_settings.TASKS_HEADER_SIZE:]
+        rows = self.__tsv_provider.get_tasks()
         self.__tasks = []
         for row in rows:
             self.__tasks.append(Task(row))
