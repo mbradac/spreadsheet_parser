@@ -34,10 +34,11 @@ class Task(object):
         self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN]
         self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN]
 
-    def key(self):
-        normalised_name = unicodedata.normalize('NFD', self.name).encode(
+    def normalized_name(self):
+        return unicodedata.normalize('NFD', self.name).encode(
                 'ascii', 'ignore').split()[0].lower()
-        return self.contests_key + '-' + normalised_name
+    def key(self):
+        return self.contests_key + '-' + self.normalized_name()
 
     def __hash__(self):
         return self.key().__hash__()

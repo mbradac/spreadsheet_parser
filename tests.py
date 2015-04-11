@@ -63,4 +63,7 @@ print a[0].full_name_plural()
 print manager.contest_of_task(b[0]).full_name
 print b[6].name
 print b[6].key()
+print b[6].normalized_name()
+print b[34].name
 print b[34].key()
+print b[34].normalized_name()
