@@ -159,17 +159,19 @@ class DataManager(object):
             for row in names:
                 short_name = row[_settings.VALUES_CONTEST_SHORT_NAME_COLUMN]
                 full_name = row[_settings.VALUES_CONTEST_FULL_NAME_COLUMN]
+                full_name_plural = row[_settings.VALUES_CONTEST_FULL_NAME_PLURAL_COLUMN]
                 if short_name == '': 
                     continue
                 if full_name == '': 
                     full_name = short_name
-                self.__contest_names_dict[short_name] = full_name
+                self.__contest_names_dict[short_name] = (full_name, full_name_plural)
 
-    def get_contest_full_name(self, short_name, read_cached=None):
+    def get_contest_full_name(self, short_name, plural=False, read_cached=None):
         if read_cached == None:
             read_cached = self.read_cached
         self.__build_name_dicts(read_cached)
         if short_name in self.__contest_names_dict:
-            return self.__contest_names_dict[short_name]
+            t = 1 if plural else 0
+            return self.__contest_names_dict[short_name][t].decode('utf-8')
         else:
-            return short_name
+            return short_name.decode('utf-8')
