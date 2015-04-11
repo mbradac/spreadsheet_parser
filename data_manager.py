@@ -62,6 +62,9 @@ class Task(object):
     def download_text_pdf(self, dst):
         return self.__download_url(self.text_pdf_url, dst)
 
+    def __eq__(self, other):
+        return self.key() == other.key()
+
 
 class DataManager(object):
     def __init__(self, read_cached=True, tsv_provider=None):
