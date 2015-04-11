@@ -32,7 +32,10 @@ class Task(object):
         self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN].strip()
         self.tests_in_path = lst[_settings.TASKS_TESTS_IN_PATH_COLUMN].strip()
         self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN].strip()
-        self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN].strip()
+        try:
+            self.tests_num_io = int(lst[_settings.TASKS_TESTS_NUM_IO_COLUMN])
+        except:
+            pass
 
     def normalized_name(self):
         return unicodedata.normalize('NFD', self.name).encode(
