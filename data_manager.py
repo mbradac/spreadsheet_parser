@@ -77,6 +77,7 @@ class DataManager(object):
         self.__tasks = None
         self.__contest_tasks_dict = None
         self.__task_contest_dict = None
+        self.__contest_names_dict = None
 
     def get_contests(self, read_cached=None):
         if read_cached == None:
@@ -145,3 +146,27 @@ class DataManager(object):
             tasks = self.tasks_in_contest(contest, True)
             for task in tasks:
                 self.__task_contest_dict[task] = contest
+
+    def __build_name_dicts(self, read_cached=None):
+        if(read_cached == None):
+            read_cached = self.read_cached
+        if self.__contest_names_dict == None or read_cached == False:
+            names = self.__tsv_provider.get_names()
+            self.__contest_names_dict = {}
+            for row in names:
+                short_name = row[_settings.VALUES_CONTEST_SHORT_NAME_COLUMN]
+                full_name = row[_settings.VALUES_CONTEST_FULL_NAME_COLUMN]
+                if short_name == '': 
+                    continue
+                if full_name == '': 
+                    full_name = short_name
+                self.__contest_names_dict[short_name] = full_name
+
+    def get_contest_full_name(self, short_name, read_cached=None):
+        if(read_cached == None):
+            read_cached = self.read_cached
+        self.__build_name_dicts(read_cached)
+        if short_name in self.__contest_names_dict:
+            return self.__contest_names_dict[short_name]
+        else:
+            return short_name
