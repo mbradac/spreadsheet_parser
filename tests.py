@@ -72,3 +72,8 @@ print manager.get_contest_full_name('skolsko')
 print manager.get_contest_full_name('drzavno')
 print manager.get_contest_full_name('hio')
 print manager.get_contest_full_name('nepostoji')
+
+print manager.get_contest_full_name('skolsko', True)
+print manager.get_contest_full_name('drzavno', True)
+print manager.get_contest_full_name('hio', True)
+print manager.get_contest_full_name('nepostoji', True)
