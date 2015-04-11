@@ -9,15 +9,15 @@ import _tsv_from_spreadsheet
 class Contest(object):
     def __init__(self, lst):
         super(Contest, self).__init__()
-        self.key = lst[_settings.CONTESTS_KEY_COLUMN]
-        self.short_name = lst[_settings.CONTESTS_SHORT_NAME_COLUMN]
+        self.key = lst[_settings.CONTESTS_KEY_COLUMN].strip()
+        self.short_name = lst[_settings.CONTESTS_SHORT_NAME_COLUMN].strip()
         self.remaining = int(lst[_settings.CONTESTS_REMAINING_COLUMN])
-        self.organizer = lst[_settings.CONTESTS_ORGANIZER_COLUMN]
-        self.full_name = lst[_settings.CONTESTS_FULL_NAME_COLUMN].decode('utf-8')
+        self.organizer = lst[_settings.CONTESTS_ORGANIZER_COLUMN].strip()
+        self.full_name = lst[_settings.CONTESTS_FULL_NAME_COLUMN].decode('utf-8').strip()
         self.year = int(lst[_settings.CONTESTS_YEAR_COLUMN])
-        self.round = lst[_settings.CONTESTS_ROUND_COLUMN]
+        self.round = lst[_settings.CONTESTS_ROUND_COLUMN].strip()
         self.num_tasks = int(lst[_settings.CONTESTS_NUM_TASKS_COLUMN])
-        self.url = lst[_settings.CONTESTS_URL_COLUMN]
+        self.url = lst[_settings.CONTESTS_URL_COLUMN].strip()
 
     def full_name_plural(self):
         return contest_names.PLURALS[self.full_name]
@@ -25,14 +25,14 @@ class Contest(object):
 class Task(object):
     def __init__(self, lst):
         super(Task, self).__init__()
-        self.contests_key = lst[_settings.TASKS_CONTESTS_KEY_COLUMN]
-        self.name = lst[_settings.TASKS_NAME_COLUMN].decode('utf-8')
-        self.text_pdf_url = lst[_settings.TASKS_TEXT_URL_COLUMN]
+        self.contests_key = lst[_settings.TASKS_CONTESTS_KEY_COLUMN].strip()
+        self.name = lst[_settings.TASKS_NAME_COLUMN].decode('utf-8').strip()
+        self.text_pdf_url = lst[_settings.TASKS_TEXT_URL_COLUMN].strip()
         self.pages = map(int, lst[_settings.TASKS_PAGES_COLUMN].split(','))
-        self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN]
-        self.tests_in_path = lst[_settings.TASKS_TESTS_IN_PATH_COLUMN]
-        self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN]
-        self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN]
+        self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN].strip()
+        self.tests_in_path = lst[_settings.TASKS_TESTS_IN_PATH_COLUMN].strip()
+        self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN].strip()
+        self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN].strip()
 
     def normalized_name(self):
         return unicodedata.normalize('NFD', self.name).encode(
