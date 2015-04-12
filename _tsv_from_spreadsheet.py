@@ -10,22 +10,18 @@ class TsvFromSpreadsheet(object):
                 _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
 
     def get_contests(self):
-        tsv_contests = self.__downloader.download(
-                _settings.CONTESTS_ID, _settings.CONTESTS_GID)
-        rows = list(csv.reader(tsv_contests, delimiter='\t'))
-        rows = rows[_settings.CONTESTS_HEADER_SIZE:]
-        return rows
+        return self.__get_content(_settings.CONTESTS_ID, 
+                _settings.CONTESTS_GID, _settings.CONTESTS_HEADER_SIZE)
     
     def get_tasks(self):
-        tsv_tasks = self.__downloader.download(
-                _settings.TASKS_ID, _settings.TASKS_GID)
-        rows = list(csv.reader(tsv_tasks, delimiter='\t'))
-        rows = rows[_settings.TASKS_HEADER_SIZE:]
-        return rows
+        return self.__get_content(_settings.TASKS_ID,
+                _settings.TASKS_GID, _settings.TASKS_HEADER_SIZE)
 
     def get_names(self):
-        tsv_names = self.__downloader.download(
-                _settings.VALUES_ID, _settings.VALUES_GID)
-        rows = list(csv.reader(tsv_names, delimiter='\t'))
-        rows = rows[_settings.VALUES_HEADER_SIZE:]
-        return rows
+        return self.__get_content(_settings.VALUES_ID, _settings.VALUES_GID,
+                _settings.VALUES_HEADER_SIZE)
+
+    def __get_content(self, content_id, content_gid, header_size):
+        tsv_content = self.__downloader.download(content_id, content_gid)
+        rows = list(csv.reader(tsv_content, delimiter='\t'))
+        return rows[header_size:]
