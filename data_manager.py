@@ -32,7 +32,10 @@ class Task(object):
         self.tests_zip_url = lst[_settings.TASKS_TESTS_ZIP_COLUMN].strip()
         self.tests_in_path = lst[_settings.TASKS_TESTS_IN_PATH_COLUMN].strip()
         self.tests_in_to_out = lst[_settings.TASKS_TESTS_IN_TO_OUT_COLUMN].strip()
-        self.tests_num_io = lst[_settings.TASKS_TESTS_NUM_IO_COLUMN].strip()
+        try:
+            self.tests_num_io = int(lst[_settings.TASKS_TESTS_NUM_IO_COLUMN])
+        except:
+            pass
 
     def normalized_name(self):
         return unicodedata.normalize('NFD', self.name).encode(
@@ -81,31 +84,21 @@ class DataManager(object):
         self.__round_names_dict = None
 
     def get_contests(self, read_cached=None):
-        if read_cached == None:
-            read_cached = self.read_cached
-        if self.__contests == None or read_cached == False:
-            self.__load_contests()
+        self.__update(read_cached, self.__contests, self.__load_contests)
         return self.__contests[:]
 
     def get_tasks(self, read_cached=None):
-        if read_cached == None:
-            read_cached = self.read_cached
-        if self.__tasks == None or read_cached == False:
-            self.__load_tasks()
+        self.__update(read_cached, self.__tasks, self.__load_tasks)
         return self.__tasks[:]
 
     def tasks_in_contest(self, contest, read_cached=None):
-        if read_cached == None:
-            read_cached = self.read_cached
-        if self.__contest_tasks_dict == None or read_cached == False:
-            self.__build_contest_tasks_dict(read_cached)
+        self.__update(read_cached, self.__contest_tasks_dict, 
+                self.__build_contest_tasks_dict, read_cached)
         return self.__contest_tasks_dict.get(contest.key, [])[:]
 
     def contest_of_task(self, task, read_cached=None):
-        if read_cached == None:
-            read_cached = self.read_cached
-        if self.__task_contest_dict == None or read_cached == False:
-            self.__build_task_contest_dict(read_cached)
+        self.__update(read_cached, self.__task_contest_dict,
+                self.__build_task_contest_dict, read_cached)
         return self.__task_contest_dict.get(task, None)
 
     def __check_settings(self):
@@ -113,6 +106,12 @@ class DataManager(object):
             os.mkdir(_settings.CACHE_DIR)
         except OSError:
             assert os.path.isdir(_settings.CACHE_DIR)
+
+    def __update(self, read_cached, content, update_function, *args):
+        if read_cached == None:
+            read_cached = self.read_cached
+        if content == None or read_cached == False:
+            update_function(*args)
 
     def __load_contests(self):
         rows = self.__tsv_provider.get_contests()
@@ -126,7 +125,7 @@ class DataManager(object):
         for row in rows:
             self.__tasks.append(Task(row))
 
-    def __build_contest_tasks_dict(self, read_cached):
+    def __build_contest_tasks_dict(self, read_cached=None):
         if read_cached == None:
             read_cached = self.read_cached
         self.get_contests(read_cached)
