@@ -82,6 +82,8 @@ class DataManager(object):
         self.__task_contest_dict = None
         self.__contest_names_dict = None
         self.__round_names_dict = None
+        self.__contest_short_names_list = None
+        self.__round_short_names_list = None
 
     def get_contests(self, read_cached=None):
         self.__update(read_cached, self.__contests, self.__load_contests)
@@ -150,6 +152,7 @@ class DataManager(object):
     def __build_name_dicts(self, read_cached=None):
         if read_cached == None:
             read_cached = self.read_cached
+        names = None
         if self.__contest_names_dict == None or read_cached == False:
             names = self.__tsv_provider.get_names()
             self.__contest_names_dict = {}
@@ -163,7 +166,8 @@ class DataManager(object):
                     full_name = short_name
                 self.__contest_names_dict[short_name] = (full_name, full_name_plural)
         if self.__round_names_dict == None or read_cached == False:
-            names = self.__tsv_provider.get_names()
+            if names == None:
+                names = self.__tsv_provider.get_names()
             self.__round_names_dict = {}
             for row in names:
                 contest_name = row[_settings.VALUES_ROUND_NAME_CONTEST_COLUMN]
@@ -172,6 +176,24 @@ class DataManager(object):
                 if contest_name == '' and round_name == '':
                     continue
                 self.__round_names_dict[(contest_name, round_name)] = full_name
+        if self.__contest_short_names_list == None or read_cached == False:
+            if names == None:
+                self.__tsv_provider.get_names()
+            self.__contest_short_names_list = []
+            for row in names:
+                contest_name = row[_settings.VALUES_CONTEST_SHORT_NAME_COLUMN]
+                if contest_name != '':
+                    self.__contest_short_names_list.append(contest_name)
+        if self.__round_short_names_list == None or read_cached == False:
+            if names == None:
+                self.__tsv_provider.get_names()
+            self.__round_short_names_list = []
+            for row in names:
+                round_name = row[_settings.VALUES_ROUND_NAME_ROUND_SHORT_COLUMN]
+                if round_name != '':
+                    self.__round_short_names_list.append(round_name)
+
+
 
     def get_contest_full_name(self, short_name, plural=False, read_cached=None):
         if read_cached == None:
@@ -192,3 +214,15 @@ class DataManager(object):
             return self.__round_names_dict[key].decode('utf-8')
         else:
             return ('%s-%s' % key).decode('utf-8')
+
+    def contest_short_names(self, read_cached=None):
+        if read_cached == None:
+            read_cached = self.read_cached
+        self.__build_name_dicts(read_cached)
+        return self.__contest_short_names_list
+
+    def round_short_names(self, read_cached=None):
+        if read_cached == None:
+            read_cached = self.read_cached
+        self.__build_name_dicts(read_cached)
+        return self.__round_short_names_list
