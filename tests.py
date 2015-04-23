@@ -83,3 +83,7 @@ print manager.get_round_full_name('sir', 'vrhnje')
 print manager.get_round_full_name('hio', '')
 print manager.get_round_full_name('honi', 'kolo7')
 print manager.get_round_full_name('studentsko', 'krug1')
+
+
+print manager.contest_short_names()
+print manager.round_short_names()
