@@ -6,8 +6,7 @@ import _worksheet_downloader
 class TsvFromSpreadsheet(object):
     def __init__(self):
         super(TsvFromSpreadsheet, self).__init__()
-        self.__downloader = _worksheet_downloader.WorksheetDownloader(
-                _hidden_settings.EMAIL, _hidden_settings.PASSWORD)
+        self.__downloader = _worksheet_downloader.WorksheetDownloader()
 
     def get_contests(self):
         return self.__get_content(_settings.CONTESTS_ID, 
