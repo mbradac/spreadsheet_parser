@@ -1,9 +1,13 @@
+'''Various constants used by module.'''
 import os
 from _hidden_settings import *
 
 CACHE_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'cache')
 
+'''Contest spreadsheet info.'''
 CONTESTS_HEADER_SIZE = 2
+
+'''Contest member - google spreadsheet column mapping.'''
 CONTESTS_KEY_COLUMN = 0
 CONTESTS_SHORT_NAME_COLUMN = 1
 CONTESTS_REMAINING_COLUMN = 2
@@ -14,7 +18,10 @@ CONTESTS_ROUND_COLUMN = 6
 CONTESTS_NUM_TASKS_COLUMN = 7
 CONTESTS_URL_COLUMN = 8
 
+'''Task spreadsheet info.'''
 TASKS_HEADER_SIZE = 2
+
+'''Task member - google spreadsheet column mapping.'''
 TASKS_CONTESTS_KEY_COLUMN = 0
 TASKS_NAME_COLUMN = 1
 TASKS_TEXT_URL_COLUMN = 2
@@ -24,7 +31,10 @@ TASKS_TESTS_IN_PATH_COLUMN = 5
 TASKS_TESTS_IN_TO_OUT_COLUMN = 6
 TASKS_TESTS_NUM_IO_COLUMN = 7
 
+'''Values(names) spreadsheet info.'''
 VALUES_HEADER_SIZE = 1
+
+'''Values(names) - google spreadsheet column mapping.'''
 VALUES_CONTEST_SHORT_NAME_COLUMN = 2
 VALUES_CONTEST_FULL_NAME_COLUMN = 1
 VALUES_CONTEST_FULL_NAME_PLURAL_COLUMN = 3

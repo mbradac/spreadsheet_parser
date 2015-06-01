@@ -58,8 +58,6 @@ c = manager.tasks_in_contest(a[0])
 print len(c)
 print c[0].name
 
-print a[0].full_name_plural()
-
 print manager.contest_of_task(b[0]).full_name
 print b[6].name
 print b[6].key()
