@@ -1,13 +1,11 @@
 '''Contains class that provides list getters of data stored in spreadsheets.'''
 import csv
 import _settings
-import _hidden_settings
 import _worksheet_downloader
 
 class TsvFromSpreadsheet(object):
     def __init__(self):
-        '''Constructs object that uses google account with password and email
-        stored in _hidden_settings for downloading google spreadsheets.
+        '''Constructs object that uses for downloading google spreadsheets.
         '''
         super(TsvFromSpreadsheet, self).__init__()
         self.__downloader = _worksheet_downloader.WorksheetDownloader()
