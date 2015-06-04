@@ -347,10 +347,10 @@ class DataManager(object):
 
         for row in names:
             short_name = row[_settings.VALUES_CONTEST_SHORT_NAME_COLUMN]
-            full_name = row[_settings.VALUES_CONTEST_FULL_NAME_COLUMN]
-            full_name_plural = row[_settings.VALUES_CONTEST_FULL_NAME_PLURAL_COLUMN]
+            full_name = row[_settings.VALUES_CONTEST_FULL_NAME_COLUMN].decode('utf-8')
+            full_name_plural = row[_settings.VALUES_CONTEST_FULL_NAME_PLURAL_COLUMN].decode('utf-8')
             contest_name = row[_settings.VALUES_ROUND_NAME_CONTEST_COLUMN]
-            round_name = row[_settings.VALUES_ROUND_NAME_ROUND_COLUMN]
+            round_name = row[_settings.VALUES_ROUND_NAME_ROUND_COLUMN].decode('utf-8')
             round_short_name = row[_settings.VALUES_ROUND_NAME_ROUND_SHORT_COLUMN]
             round_full_name = row[_settings.VALUES_ROUND_NAME_ROUND_FULL_COLUMN]
 
